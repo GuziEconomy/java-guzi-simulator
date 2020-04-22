@@ -30,7 +30,7 @@ public class HumanBehaviourService {
 	
 	public static void giveBirth(HumanGuziUser user) {
 		try {
-			new HumanGuziUser((GuziWorld) user.getWorld(), user.getWorld().getRandomFreePosition(), user.getSellingIntentionProbability(), user.getBuyingIntentionProbability());
+			new HumanGuziUser(user.getWorld(), user.getWorld().getRandomFreePosition(), user.getSellingIntentionProbability(), user.getBuyingIntentionProbability());
 		} catch (NoFreePositionException e) {
 			// this world isn't big enough...
 		}
