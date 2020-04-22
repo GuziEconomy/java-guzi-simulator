@@ -78,6 +78,15 @@ public class HumanGuziUser extends AbstractAgent<AbstractWorld<?>> {
         // stay here
       }
     }
+    
+    // am i dying or giving birth ? let's try to give birth first
+    if(HumanBehaviourService.isGivingBirth(this)) {
+    	HumanBehaviourService.giveBirth(this);
+    }
+    
+    if(HumanBehaviourService.isDying(this)) {
+    	HumanBehaviourService.die(this);
+    }
   }
   
   @Override

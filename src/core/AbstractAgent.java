@@ -16,14 +16,14 @@ public abstract class AbstractAgent<T extends AbstractWorld<?>> {
     protected Integer nbRoundPlayed;
 
     public AbstractAgent(final T world, final Position pos) {
-		this.position = pos;
-		world.addAgent(this);
-		this.world = world;
-		this.nbRoundPlayed = 1;
-		this.previousDay = 0;
+			this.position = pos;
+			world.addAgent(this);
+			this.world = world;
+			this.nbRoundPlayed = 1;
+			this.previousDay = 0;
     }
 
-    /**
+		/**
      * Agent's action during his round. He interacts with his close environment.
      */
     protected abstract void act();
@@ -102,10 +102,13 @@ public abstract class AbstractAgent<T extends AbstractWorld<?>> {
     	return this.nbRoundPlayed;
     }
 
-
     public Position getPosition() {
     	return this.position;
     }
+
+    public T getWorld() {
+			return world;
+		}
     
     public void setId(final int id) {
     	this.id = id;
