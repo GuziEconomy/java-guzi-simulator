@@ -13,7 +13,7 @@ import guzi.money.Guzi;
 import guzi.money.GuziOperationService;
 import guzi.world.GuziWorld;
 
-public class HumanGuziUser extends AbstractAgent<AbstractWorld<?>> {
+public class HumanGuziUser extends AbstractAgent<GuziWorld> {
   
   private static Random     rand = new Random();
   
@@ -56,7 +56,7 @@ public class HumanGuziUser extends AbstractAgent<AbstractWorld<?>> {
   @Override
   protected void act() {
     // try to interact with someone !
-    final HumanGuziUser randomNeighbour = (HumanGuziUser) this.world.getRandomNeighbour(this.getPosition());
+    final HumanGuziUser randomNeighbour = this.world.getRandomNeighbour(this.getPosition());
     if (randomNeighbour != null) {
       if (HumanBehaviourService.hasBuyingIntention(this) && HumanBehaviourService.hasSellingIntention(randomNeighbour)) {
         final Integer price = rand.nextInt(wallet.size());
