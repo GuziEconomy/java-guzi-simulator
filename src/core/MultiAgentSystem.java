@@ -12,25 +12,12 @@ import java.util.concurrent.TimeUnit;
 
 public class MultiAgentSystem {
   
-  public Integer          currentDay;
+  public Integer          currentRound;
   protected AbstractWorld<?> world;
-  private Integer          nbDayMax;
-  /**
-   * Time between two rounds (in millisecond)
-   */
-  private Integer          latence;
 
-  public MultiAgentSystem(final int nbDayMax, final int latence) {
-    this.currentDay = 1;
-    this.nbDayMax = nbDayMax;
-    this.latence = latence;
-  }
-  
-  /**
-   * Defines the stop condition.
-   */
-  public boolean isFinished() {
-    return this.currentDay > this.nbDayMax;
+  public MultiAgentSystem(AbstractWorld<?> world) {
+    this.currentRound = 0;
+    this.world = world;
   }
   
   /**
@@ -56,7 +43,7 @@ public class MultiAgentSystem {
       final int alea = rand.nextInt(cptNbAgents);
       final AbstractAgent<?> agentAlea = agents[alea];
       if (agentAlea != null) {
-        agentAlea.act(this.currentDay);
+        agentAlea.act(this.currentRound);
       }
       agents[alea] = agents[cptNbAgents - 1];
       agents[cptNbAgents - 1] = agentAlea;
@@ -67,29 +54,33 @@ public class MultiAgentSystem {
     while (cptNbAgents < agents.length) {
       final AbstractAgent<?> a = agents[cptNbAgents++];
       if (a != null) {
-        a.refresh(this.currentDay);
+        a.refresh(this.currentRound);
       }
     }
     
     this.world.generateStats();
-    this.world.refreshView(this.currentDay);
+    this.world.refreshView(this.currentRound);
     
-    try {
-      TimeUnit.MILLISECONDS.sleep(this.latence);
-    }
-    catch (final InterruptedException e) {
-      // Handle exception
-    }
+    this.currentRound++;
+  }
+  
+  public void playRounds(final int nbRoundToPlay) {
+  	playRounds(nbRoundToPlay, 0);
   }
   
   /**
-   * Run the multi agent system. It plays a new round for each day until the stop condition is reached.
+   * Play rounds of multi agent system. It plays a new round until the provided number of rounds is reached.
    */
-  public void run() {
-    this.currentDay = 0;
-    while (!isFinished()) {
+  public void playRounds(final int nbRoundToPlay, final int latence) {
+  	int nbRoundPlayed = 0;
+    while (nbRoundPlayed++ < nbRoundToPlay) {
       this.playRound();
-      this.currentDay++;
+      
+      try {
+			  TimeUnit.MILLISECONDS.sleep(latence);
+			}
+			catch (final InterruptedException e) {
+			}
     }
   }
   

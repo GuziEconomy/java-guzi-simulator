@@ -12,9 +12,9 @@ public class Main {
   public static void main(final String[] args) {
     if (args.length < 5) {
       System.out.println("Usage : ");
-      System.out.println("java -jar [latence] [maxDays] [gridWidth] [gridHeight] [nbGuziUsers]");
+      System.out.println("java -jar [latence] [nbDays] [gridWidth] [gridHeight] [nbGuziUsers]");
       System.out.println(" * latence : time in millisecond between two rounds");
-      System.out.println(" * maxDays : maximum number of days played");
+      System.out.println(" * nbDays : number of days to play");
       System.out.println(" * gridWidth : number of case in a grid row");
       System.out.println(" * gridHeight : number of case in a grid column");
       System.out.println(" * nbGuziUsers : number of human guzi users ");
@@ -22,12 +22,10 @@ public class Main {
     }
     
     final int latence = Integer.parseInt(args[0]);
-    final int maxDays = Integer.parseInt(args[1]);
+    final int nbDays = Integer.parseInt(args[1]);
     final int gridWidth = Integer.parseInt(args[2]);
     final int gridHeight = Integer.parseInt(args[3]);
     final int nbGuziUsers = Integer.parseInt(args[4]);
-    
-    final MultiAgentSystem simulator = new MultiAgentSystem(maxDays, latence);
     
     final GuziWorld world = new GuziWorld(gridWidth, gridHeight);
     
@@ -45,8 +43,9 @@ public class Main {
       }
     }
     
-    simulator.setWorld(world);
-    simulator.run();
+    final MultiAgentSystem simulator = new MultiAgentSystem(world);
+    
+    simulator.playRounds(nbDays);
   }
   
 }
