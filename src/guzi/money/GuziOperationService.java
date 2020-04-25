@@ -9,6 +9,10 @@ import guzi.exception.NoMoreGuzisException;
 
 public class GuziOperationService {
   
+	public static Integer getNbGuzasInPortfolio(HumanGuziUser user) {
+		return user.getPortfolio().size();
+	}
+	
   public static Integer addGuzasInPortfolio(final HumanGuziUser user, final Integer nbGuzasToAdd, final Integer currentDay) {
     return addGuzisInQueue(user.getPortfolio(), nbGuzasToAdd, currentDay);
   }
@@ -16,6 +20,10 @@ public class GuziOperationService {
   public static Guzi removeGuzaFromPortfolio(final HumanGuziUser user) throws NoMoreGuzisException {
     return removeGuziFromQueue(user.getPortfolio());
   }
+  
+  public static Integer getNbGuzisInWallet(HumanGuziUser user) {
+		return user.getWallet().size();
+	}
   
   public static Integer addGuzisInWallet(final HumanGuziUser user, final Integer nbGuzisToAdd, final Integer currentDay) {
     return addGuzisInQueue(user.getWallet(), nbGuzisToAdd, currentDay);
@@ -27,8 +35,7 @@ public class GuziOperationService {
    */
   public static Integer removeFromWallet(final HumanGuziUser user, final Integer nbGuzisToRemove) throws NoMoreGuzisException {
     // check there is enough guzis in wallet
-    final Integer nbGuzisInWallet = user.getWallet().size();
-    if (nbGuzisToRemove > nbGuzisInWallet) {
+    if (nbGuzisToRemove > getNbGuzisInWallet(user)) {
       throw new NoMoreGuzisException();
     }
     
@@ -38,7 +45,7 @@ public class GuziOperationService {
       removeGuziFromWallet(user);
     }
     
-    return user.getWallet().size();
+    return getNbGuzisInWallet(user);
   }
   
   /**
@@ -153,4 +160,5 @@ public class GuziOperationService {
       throw new NoMoreGuzisException(e);
     }
   }
+
 }

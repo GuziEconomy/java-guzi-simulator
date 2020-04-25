@@ -5,7 +5,6 @@ import java.util.Queue;
 import java.util.Random;
 
 import core.AbstractAgent;
-import core.AbstractWorld;
 import core.Position;
 import core.exception.NoFreePositionException;
 import guzi.exception.ImpossiblePaymentException;
@@ -59,7 +58,7 @@ public class HumanGuziUser extends AbstractAgent<GuziWorld> {
     final HumanGuziUser randomNeighbour = this.world.getRandomNeighbour(this.getPosition());
     if (randomNeighbour != null) {
       if (HumanBehaviourService.hasBuyingIntention(this) && HumanBehaviourService.hasSellingIntention(randomNeighbour)) {
-        final Integer price = rand.nextInt(wallet.size());
+        final Integer price = rand.nextInt(GuziOperationService.getNbGuzisInWallet(this));
         try {
           GuziOperationService.pay(this, randomNeighbour, price);
         }
@@ -105,7 +104,7 @@ public class HumanGuziUser extends AbstractAgent<GuziWorld> {
     sb.append("sellProb: ");
     sb.append(this.getSellingIntentionProbability());
     sb.append("] \n");
-    sb.append("    wallet: " + getWallet().size() + "\n");
+    sb.append("    wallet: " + GuziOperationService.getNbGuzisInWallet(this) + "\n");
     sb.append("    balance: " + getBalance() + "\n");
     sb.append("    accumulated total: " + getAccumulatedTotal() + "\n");
     sb.append("    dailyIncome: " + GuziOperationService.calculateDailyIncome(this));

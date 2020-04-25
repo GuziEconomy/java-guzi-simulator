@@ -3,19 +3,23 @@ package guzi.world;
 import core.AbstractWorld;
 import core.Position;
 import guzi.agent.HumanGuziUser;
+import guzi.stat.GuziStats;
 
 /**
  * Perfect environment for guzis !
  */
 public class GuziWorld extends AbstractWorld<HumanGuziUser> {
   
-  public GuziWorld(final int hauteur, final int largeur) {
+  private GuziStats guziInCirculationGraph;
+
+	public GuziWorld(final int hauteur, final int largeur) {
     super(hauteur, largeur);
+    this.guziInCirculationGraph = new GuziStats();
   }
   
   @Override
   public void generateStats() {
-    // TODO Auto-generated method stub
+  	this.guziInCirculationGraph.notifyNewDayPlayed(this);
   }
   
   @Override
