@@ -74,7 +74,7 @@ public class HumanGuziUser extends AbstractAgent<GuziWorld> {
         this.goTo(this.world.getRandomFreePosition());
       }
       catch (final NoFreePositionException e) {
-        // 1*1 grid case ?
+        // no neighboor and no free position ? 1*1 grid case ?
         // stay here
       }
     }

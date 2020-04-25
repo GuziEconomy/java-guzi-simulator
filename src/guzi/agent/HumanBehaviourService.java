@@ -3,7 +3,6 @@ package guzi.agent;
 import java.util.Random;
 
 import core.exception.NoFreePositionException;
-import guzi.world.GuziWorld;
 
 public class HumanBehaviourService {
 	// there was 11,2 births for 1000 people in 2019 in France (source: Wikipedia)

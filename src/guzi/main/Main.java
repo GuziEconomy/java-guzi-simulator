@@ -45,7 +45,7 @@ public class Main {
     
     final MultiAgentSystem simulator = new MultiAgentSystem(world);
     
-    simulator.playRounds(nbDays);
+    simulator.playRounds(nbDays, latence);
   }
   
 }
