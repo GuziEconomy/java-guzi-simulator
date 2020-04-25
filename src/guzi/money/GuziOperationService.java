@@ -74,7 +74,6 @@ public class GuziOperationService {
       // the payor has not enough guzis in his wallet : cancel payment
       throw new ImpossiblePaymentException(e);
     }
-    removeFromBalance(payor, price);
     addInBalance(recipient, price);
   }
   
